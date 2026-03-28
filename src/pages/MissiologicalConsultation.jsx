@@ -64,14 +64,14 @@ function AnimatedBackground() {
   return (
     <div style={{ position: "fixed", inset: 0, zIndex: 0, overflow: "hidden" }}>
       <div style={{ position: "absolute", inset: 0, background: "#f0f4f0" }} />
-      <div style={{ position: "absolute", inset: "-20%", animation: "aurora1 12s ease-in-out infinite alternate",
-        background: `radial-gradient(ellipse 60% 50% at 20% 40%, rgba(160,220,180,0.55) 0%, transparent 70%),
-          radial-gradient(ellipse 50% 45% at 75% 20%, rgba(140,195,235,0.50) 0%, transparent 65%),
-          radial-gradient(ellipse 45% 40% at 55% 75%, rgba(170,225,195,0.45) 0%, transparent 65%)` }} />
-      <div style={{ position: "absolute", inset: "-20%", animation: "aurora2 16s ease-in-out infinite alternate",
-        background: `radial-gradient(ellipse 55% 45% at 80% 60%, rgba(185,165,235,0.45) 0%, transparent 65%),
-          radial-gradient(ellipse 45% 40% at 30% 75%, rgba(130,190,230,0.40) 0%, transparent 60%),
-          radial-gradient(ellipse 50% 50% at 60% 20%, rgba(155,215,185,0.40) 0%, transparent 65%)` }} />
+      <div style={{ position: "absolute", inset: "-20%", animation: "aurora1 20s ease-in-out infinite alternate, auroraFloat 8s ease-in-out infinite",
+        background: `radial-gradient(ellipse 60% 50% at 20% 40%, rgba(160,220,180,0.75) 0%, transparent 70%),
+          radial-gradient(ellipse 50% 45% at 75% 20%, rgba(140,195,235,0.70) 0%, transparent 65%),
+          radial-gradient(ellipse 45% 40% at 55% 75%, rgba(170,225,195,0.65) 0%, transparent 65%)` }} />
+      <div style={{ position: "absolute", inset: "-20%", animation: "aurora2 24s ease-in-out infinite alternate, auroraFloat 10s ease-in-out infinite reverse",
+        background: `radial-gradient(ellipse 55% 45% at 80% 60%, rgba(185,165,235,0.65) 0%, transparent 65%),
+          radial-gradient(ellipse 45% 40% at 30% 75%, rgba(130,190,230,0.60) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 50% at 60% 20%, rgba(155,215,185,0.60) 0%, transparent 65%)` }} />
       <svg ref={svgRef} style={{ position: "absolute", inset: 0 }} width={W} height={H}>
         <defs>
           {hBeams.map((_, i) => (
@@ -104,6 +104,7 @@ function AnimatedBackground() {
       <style>{`
         @keyframes aurora1 { 0% { transform: translate(0%,0%) scale(1); } 100% { transform: translate(6%,-5%) scale(1.08); } }
         @keyframes aurora2 { 0% { transform: translate(0%,0%) scale(1.05); } 100% { transform: translate(-7%,5%) scale(1); } }
+        @keyframes auroraFloat { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }
       `}</style>
     </div>
   );
@@ -117,7 +118,7 @@ export default function MissiologicalConsultation() {
   const [submitted, setSubmitted] = useState(false);
   const [focused, setFocused] = useState("");
 
-  const timeSlots = ["08:00-09:00","09:00-09:30","09:30-12:30","12:30-14:00","14:00-14:30","14:30-17:30","18:00-19:00","19:30-21:00"];
+  const timeSlots = ["08:00-09:00","09:00-09:30","09:30-10:30","11:00-12:30", "12:30-14:00","14:00-14:30","14:30-15:30", "16:00-17:30", "18:00-19:00","19:30-21:00"];
   const days = [
     { day: "10/05(월)", color: "#2563eb", borderColor: "rgba(37,99,235,0.25)" },
     { day: "10/06(화)", color: "#0891b2", borderColor: "rgba(8,145,178,0.25)" },
@@ -125,14 +126,16 @@ export default function MissiologicalConsultation() {
     { day: "10/08(목)", color: "#16a34a", borderColor: "rgba(22,163,74,0.25)" },
   ];
   const grid = [
-    [{ title:"도착", note:"점심식사 전까지", type:"default", rowSpan:3 }, { title:"아침식사", note:"", type:"meal" }, { title:"아침식사", note:"", type:"meal" }, { title:"아침식사", note:"", type:"meal" }],
-    ["RSPAN", { title:"준비", note:"", type:"default" }, { title:"준비", note:"", type:"default" }, { title:"준비", note:"", type:"default" }],
-    ["RSPAN", { title:"세션 1", note:"발제: 정민영", type:"session" }, { title:"세션 3", note:"발제: 권성찬", type:"session" }, { title:"정리 및 발표", note:"선교적 성찬: 정민영", type:"session" }],
+    [{ title:"도착", note:"점심식사 전까지", type:"default", rowSpan:4 }, { title:"아침식사", note:"", type:"meal", colSpan:3 }, "CSPAN","CSPAN"],
+    ["RSPAN", { title:"Entering Space", note:"", type:"default", colSpan:3 },  "CSPAN","CSPAN"],
+    ["RSPAN", { title:"세션 1", note:"발제: 정민영", type:"session", rowSpan:2 }, { title:"세션 3", note:"발제: 권성찬", type:"session", rowSpan:2 }, { title:"정리 및 발표", note:"", type:"session"}],
+    ["RSPAN", "RSPAN", "RSPAN", { title:"선교적 성찬: 정민영", note:"", type:"word"}],
     [{ title:"점심식사", note:"", type:"meal", colSpan:4 }, "CSPAN","CSPAN","CSPAN"],
-    [{ title:"등록", note:"", type:"default" }, { title:"준비", note:"", type:"default" }, { title:"Outing", note:"제주 탐방", type:"outing", rowSpan:2 }, { title:"집으로", note:"", type:"outing", rowSpan:2 }],
-    [{ title:"말씀 1: 이재훈", note:"오리엔테이션 및 소개", type:"word" }, { title:"세션 2", note:"발제: 홍현철", type:"session" }, "RSPAN","RSPAN"],
-    [{ title:"저녁 식사", note:"", type:"meal", colSpan:3 }, "CSPAN","CSPAN", { title:"집으로", note:"", type:"outing" }],
-    [{ title:"말씀 2: 이재훈", note:"", type:"word" }, { title:"말씀 3: 정갑신", note:"", type:"word" }, { title:"말씀 4: 정갑신", note:"", type:"word" }, null],
+    [{ title:"등록", note:"", type:"default" }, { title:"Entering Space", note:"", type:"default" }, { title:"Outing", note:"제주 탐방", type:"outing", rowSpan:3 }, { title:"집으로", note:"", type:"outing", rowSpan:5 }],
+    [{ title:"개회예배: 이재훈", note:"", type:"word" }, { title:"세션 2", note:"발제: 홍현철", type:"session", rowSpan:2 }, "RSPAN","RSPAN"],
+    [{ title:"OT 및 조별나눔", note:"", type:"word" }, "RSPAN", "RSPAN","RSPAN", "RSPAN"],
+    [{ title:"저녁 식사", note:"", type:"meal", colSpan:3 }, "CSPAN","CSPAN", "RSPAN"],
+    [{ title:"말씀: 이재훈", note:"", type:"word" }, { title:"말씀: 정갑신", note:"", type:"word", colSpan:2 }, "CSPAN", "RSPAN"],
   ];
   const typeStyles = {
     word:    { bg:"rgba(37,99,235,0.07)",  border:"rgba(37,99,235,0.18)",  color:"#1d4ed8" },
@@ -201,7 +204,7 @@ export default function MissiologicalConsultation() {
 
       {/* Hero */}
       <div style={{ position:"relative", zIndex:1, textAlign:"center", padding:"80px 20px 48px" }}>
-        <div style={{ marginBottom:"20px" }}>
+        <div style={{ marginBottom:"60px" }}>
           <span style={{
             display:"inline-block",
             background:"rgba(8,145,178,0.10)", border:"1px solid rgba(8,145,178,0.30)",
@@ -210,30 +213,31 @@ export default function MissiologicalConsultation() {
             color:"#0891b2", fontWeight:"700",
             backdropFilter:"blur(8px)",
           }}>
-            초대합니다
+            GMF 선교학적 자문모임 2026
           </span>
         </div>
         <h1 className="hero-title" style={{
           fontSize:"60px", fontWeight:"900", lineHeight:"1.25",
-          color:"#4c77fa", margin:"0 0 24px", letterSpacing:"-1.5px",
+          color:"#1e40af", margin:"0 0 80px", letterSpacing:"-1.5px",
+          fontFamily:"'Trebuchet MS', sans-serif",
         }}>
           Missiological Consultation<br />
-          <span style={{ fontSize: "46px", color: "#64748b", fontWeight: 400 }}>GMF 선교학적 자문모임</span>
+          <span style={{ fontSize: "48px", color: "#64748b", fontWeight: 400 }}></span>
         </h1>
-        <p className="hero-sub" style={{ fontSize:"19px", color:"#0891b2", fontStyle:"italic", margin:"0 0 8px", lineHeight:"1.8" }}>
-          "우리가 스스로 우리의 행위들을 조사하고 여호와께로 돌아가자"
+        <p className="hero-sub" style={{ fontSize:"22px", color:"#0891b2", fontStyle:"italic", margin:"0 0 8px", lineHeight:"1.8" }}>
+          "우리가 스스로 우리의 행위들을 조사하고 <br />여호와께로 돌아가자"
         </p>
-        <p className="hero-verse" style={{ fontSize:"15px", color:"#64748b", margin:"0 0 40px" }}>— 예레미야애가 3:40</p>
+        <p className="hero-verse" style={{ fontSize:"15px", color:"#64748b", margin:"0 0 80px" }}>— 예레미야애가 3:40</p>
         <div style={{ display:"flex", justifyContent:"center", gap:"12px", flexWrap:"wrap" }}>
           {[
             { icon:"📅", text:"2026.10.5(월) — 8(목)" },
-            { icon:"📍", text:"제주" },
-            { icon:"👥", text:"GMF 선교사 약 50명" },
+            { icon:"📍", text:"제주 디아넥스호텔" },
+            { icon:"👥", text:"GMF 선교사 약 60명" },
           ].map((pill, i) => (
             <div key={i} className="pill" style={{
               background:"rgba(255,255,255,0.60)", backdropFilter:"blur(12px)",
               border:"1px solid rgba(255,255,255,0.85)", borderRadius:"100px",
-              padding:"11px 26px", fontSize:"15px", color:"#334155", fontWeight:"500",
+              padding:"15px 26px", fontSize:"15px", color:"#334155", fontWeight:"500",
               boxShadow:"0 2px 10px rgba(80,150,120,0.07)"
             }}>
               {pill.icon} {pill.text}
@@ -246,6 +250,7 @@ export default function MissiologicalConsultation() {
 
         {/* Invitation */}
         <div className="section-pad" style={{ ...glass, padding:"40px", marginBottom:"20px" }}>
+          <h2 style={{ fontSize:"28px", fontWeight:"800", color:"#0891b2", margin:"0 0 14px" }}>초대의 글</h2>
           <p className="body-text" style={{ fontSize:"18px", lineHeight:"2.1", color:"#334155", margin:"0 0 20px" }}>
             성찰이 없는 선교는 위험하다는 경고는 이미 오래 전부터 제기되어 왔습니다. 세계선교의 지형이 변하고 한국교회의 선교가 앞으로 어떠해야 하는지 그리고 우리 GMF 공동체는 그 가운데 어떤 방향을 가져야 하는지를 성찰하는 일은 더 이상 미룰 수 없는 문제입니다.
           </p>
@@ -262,8 +267,8 @@ export default function MissiologicalConsultation() {
           <h3 className="section-title" style={{ fontSize:"22px", fontWeight:"700", color:"#0f172a", marginBottom:"20px" }}>🎤 강사 소개</h3>
           <div style={{ display:"grid", gap:"10px" }}>
             {/* 말씀 강사 */}
-            {[{ role:"말씀", name:"이재훈 목사",  org:"GMF 이사장" },
-              { role:"말씀", name:"정갑신 목사",  org:"GMF 이사" }].map((s, i) => (
+            {[{ role:"말씀", name:"이재훈 목사",  org:"온누리교회, GMF 이사장" },
+              { role:"말씀", name:"정갑신 목사",  org:"예수향남교회, GMF 이사" }].map((s, i) => (
               <div key={i} style={{
                 background:"rgba(255,255,255,0.65)", borderRadius:"12px", padding:"16px 20px",
                 display:"flex", alignItems:"center", gap:"14px",
@@ -289,9 +294,9 @@ export default function MissiologicalConsultation() {
             {/* 발제 강사: 데스크탑에서는 가로, 모바일에서는 세로 */}
             <div className="presentation-row" style={{ display:"flex", flexWrap:"wrap", gap:"14px", marginTop:"10px" }}>
               {[
-                { role:"발제", name:"정민영 선교사", org:"GMF 이사", subject:"하나님의 나라, 하나님의 선교" },
-                { role:"발제", name:"홍현철 선교사", org:"kriM 원장", subject:"한국 선교와 세계 선교의 흐름" },
-                { role:"발제", name:"권성찬 선교사", org:"GMF 대표", subject:"글로벌 교회 시대의 선교 방향" },
+                { role:"발제", name:"정민영 선교사", org:"GMF 이사", subject:"하나님의 나라와 하나님의 선교", badge:"(가제)" },
+                { role:"발제", name:"홍현철 선교사", org:"kriM 원장", subject:"오늘날 한국 선교와 세계 선교의 흐름", badge:"(가제)" },
+                { role:"발제", name:"권성찬 선교사", org:"GMF 대표", subject:"글로벌 교회 시대의 선교 방향", badge:"(가제)" },
               ].map((s, i) => {
                 // 홍현철 선교사(두 번째)만 아래로 강제 배치
                 const isSecond = i === 1;
@@ -317,7 +322,7 @@ export default function MissiologicalConsultation() {
                       <div className="speaker-org" style={{ fontSize:"14px", color:"#94a3b8", marginTop:"2px" }}>{s.org}</div>
                     </div>
                     <div className="speaker-subject" style={{ fontSize:"18px", color:"#0891b2", fontWeight:600, marginLeft:"10px", whiteSpace:"nowrap", flexShrink:0 }}>
-                      {s.subject}
+                      {s.subject} <span style={{ fontSize:"14px", color:"#94a3b8", fontWeight:500 }}>{s.badge}</span>
                     </div>
                   </div>
                 );
@@ -372,7 +377,7 @@ export default function MissiologicalConsultation() {
         {/* Schedule */}
         <div className="section-pad" style={{ ...glass, padding:"36px 40px", marginBottom:"20px" }}>
           <h3 className="section-title" style={{ fontSize:"22px", fontWeight:"700", color:"#0f172a", marginBottom:"4px" }}>📅 행사 일정</h3>
-          <p style={{ fontSize:"15px", color:"#94a3b8", marginBottom:"20px" }}>2026년 10월 5일(월) — 8일(목) · 제주</p>
+          <p style={{ fontSize:"15px", color:"#94a3b8", marginBottom:"20px" }}>2026년 10월 5일(월) — 8일(목) · 제주 디아넥스호텔</p>
           <div style={{ display:"flex", gap:"16px", flexWrap:"wrap", marginBottom:"16px" }}>
             {[
               { label:"말씀",        color:"#2563eb" },
@@ -443,7 +448,7 @@ export default function MissiologicalConsultation() {
         {!submitted ? (
           <div className="section-pad" style={{ ...glass, padding:"40px" }}>
             <h3 style={{ fontSize:"26px", fontWeight:"800", color:"#0f172a", marginBottom:"6px" }}>참석 신청</h3>
-            <p style={{ fontSize:"16px", color:"#94a3b8", marginBottom:"28px" }}>아래 정보를 입력해주세요</p>
+            <p style={{ fontSize:"16px", color:"#d57248", marginBottom:"28px" }}>[중요] 신청마감은 4월 15일까지 입니다.</p>
             <form onSubmit={async (e) => {
               e.preventDefault();
               try {
@@ -536,7 +541,7 @@ export default function MissiologicalConsultation() {
                 borderRadius:"12px", padding:"16px 20px", marginBottom:"28px",
                 fontSize:"16px", color:"#0891b2", lineHeight:"1.8"
               }}>
-                ※ 제주 왕복 여행 경비는 본인 부담입니다.<br />
+                ※ 사역지-제주 왕복 여행 경비는 본인 부담입니다.<br />
                 ※ 숙소 및 식사 경비는 GMF에서 부담합니다.
               </div>
 
@@ -549,7 +554,7 @@ export default function MissiologicalConsultation() {
                 boxShadow:"0 4px 20px rgba(8,145,178,0.35)",
                 transition:"opacity 0.2s",
               }}>
-                참석 신청하기 →
+                제출하기
               </button>
             </form>
           </div>
@@ -563,6 +568,12 @@ export default function MissiologicalConsultation() {
             </p>
           </div>
         )}
+
+        {/* GMF Family */}
+        <div className="section-pad" style={{ ...glass, padding:"40px", marginTop:"20px", display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", minHeight:"280px" }}>
+          <img src="/gmf-family-logos.png" alt="GMF Family 로고" style={{ maxWidth:"100%", height:"auto", maxHeight:"200px", objectFit:"contain", marginBottom:"16px" }} />
+          <p style={{ fontSize:"15px", color:"#94a3b8", margin:"0" }}>이 행사에 함께 참여하는 GMF 산하기관들입니다.</p>
+        </div>
       </div>
     </div>
   );
