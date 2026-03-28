@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { Registration } from "@/api/entities";
 
 // ── Aurora + Grid Background ─────────────────────────────────────────────────
 function AnimatedBackground() {
