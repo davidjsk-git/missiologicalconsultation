@@ -230,7 +230,7 @@ export default function MissiologicalConsultation() {
         <div style={{ display:"flex", justifyContent:"center", gap:"12px", flexWrap:"wrap" }}>
           {[
             { icon:"📅", text:"2026.10.5(월) — 8(목)" },
-            { icon:"📍", text:"제주 디아넥스호텔" },
+            { icon:"📍", text:"제주 디아넥스호텔 외" },
             { icon:"👥", text:"GMF 선교사 약 60명" },
           ].map((pill, i) => (
             <div key={i} className="pill" style={{
