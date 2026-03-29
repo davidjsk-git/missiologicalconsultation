@@ -290,21 +290,18 @@ export default function MissiologicalConsultation() {
               </div>
             ))}
 
-            {/* 발제 강사: 데스크탑에서는 가로, 모바일에서는 세로 */}
-            <div className="presentation-row" style={{ display:"flex", flexWrap:"wrap", gap:"14px", marginTop:"10px" }}>
+            {/* 발제 강사: 항상 아래로 쌓임, 모바일에서만 subject가 아래로 이동 */}
+            <div className="presentation-row" style={{ display:"grid", gap:"10px", marginTop:"10px" }}>
               {[
                 { role:"발제", name:"정민영 선교사", org:"GMF 이사", subject:"하나님의 나라와 하나님의 선교", badge:"(가제)" },
                 { role:"발제", name:"홍현철 선교사", org:"kriM 원장", subject:"오늘날 한국 선교와 세계 선교의 흐름", badge:"(가제)" },
                 { role:"발제", name:"권성찬 선교사", org:"GMF 대표", subject:"글로벌 교회 시대의 선교 방향", badge:"(가제)" },
               ].map((s, i) => {
-                // 홍현철 선교사(두 번째)만 아래로 강제 배치
-                const isSecond = i === 1;
                 return (
-                  <div key={i} style={{
+                  <div key={i} className="speaker-card" style={{
                     background:"rgba(255,255,255,0.65)", borderRadius:"12px", padding:"16px 20px",
                     display:"flex", alignItems:"center", gap:"14px",
-                    border:"1px solid rgba(255,255,255,0.9)",
-                    minWidth: 0, flex: 1, flexBasis: isSecond ? "100%" : "260px", maxWidth: "100%"
+                    border:"1px solid rgba(255,255,255,0.9)"
                   }}>
                     <div style={{
                       background: "rgba(8,145,178,0.09)",
@@ -331,19 +328,17 @@ export default function MissiologicalConsultation() {
           {/* 반응형 스타일 */}
           <style>{`
             @media (max-width: 700px) {
-              .presentation-row {
-                flex-direction: column !important;
-              }
-              .presentation-row > div {
-                width: 100% !important;
-                min-width: 0 !important;
-                margin-right: 0 !important;
-                margin-bottom: 10px !important;
+              .speaker-card {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                align-items: flex-start !important;
               }
               .speaker-subject {
                 margin-left: 0 !important;
                 margin-top: 8px !important;
                 white-space: normal !important;
+                width: 100% !important;
+                order: 3 !important;
               }
             }
           `}</style>
