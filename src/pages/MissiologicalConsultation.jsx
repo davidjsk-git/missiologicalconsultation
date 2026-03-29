@@ -173,8 +173,8 @@ export default function MissiologicalConsultation() {
         .time-header { font-size: 14px; font-weight: 700; }
 
         /* 모바일 */
-        @media (max-width: 600px) {
-          .hero-title { font-size: 32px !important; }
+        @media (max-width: 700px) {
+          .hero-title { font-size: 48px !important; }
           .hero-sub   { font-size: 17px !important; }
           .hero-verse { font-size: 15px !important; }
           .section-pad { padding: 28px 22px !important; }
