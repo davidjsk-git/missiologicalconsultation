@@ -566,7 +566,6 @@ export default function MissiologicalConsultation() {
         {/* GMF Family */}
         <div className="section-pad" style={{ ...glass, padding:"40px", marginTop:"20px", display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", minHeight:"280px" }}>
           <img src="/gmf-family-logos.png" alt="GMF Family 로고" style={{ maxWidth:"100%", height:"auto", maxHeight:"200px", objectFit:"contain", marginBottom:"16px" }} />
-          <p style={{ fontSize:"15px", color:"#94a3b8", margin:"0" }}>이 행사에 함께 참여하는 GMF 산하기관들입니다.</p>
         </div>
       </div>
     </div>
