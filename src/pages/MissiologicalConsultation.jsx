@@ -450,7 +450,7 @@ export default function MissiologicalConsultation() {
               행사 등록이 이미 마감되었습니다.
             </p>
             <p style={{ fontSize:"16px", color:"#64748b", marginBottom:"0", lineHeight:"1.8" }}>
-              문의가 필요하시면 GMF 운영 담당자에게 연락해 주세요.
+              문의가 필요하시면 GMF 운영 담당자(glfocus@glfocus.org)에게 연락해 주세요.
             </p>
           </div>
         ) : !submitted ? (
