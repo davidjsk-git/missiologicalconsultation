@@ -116,8 +116,9 @@ export default function MissiologicalConsultation() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [focused, setFocused] = useState("");
+  const registrationClosed = true;
 
-  const timeSlots = ["08:00-09:00","09:00-09:30","09:30-10:30","11:00-12:30", "12:30-14:00","14:00-14:30","14:30-15:30", "16:00-17:30", "18:00-19:00","19:00-19:30", "19:30-20:00", "20:00-20:30", "20:30-21:00"];
+  const timeSlots = ["08:00-09:00","09:00-09:30","09:30-10:30","11:00-12:30", "12:30-14:00","14:00-14:30","14:30-15:30", "16:00-17:30", "18:00-19:00","19:00-19:30", "19:30-20:00", "20:30-20:30", "20:30-21:00"];
   const days = [
     { day: "10/05(월)", color: "#2563eb", borderColor: "rgba(37,99,235,0.25)" },
     { day: "10/06(화)", color: "#0891b2", borderColor: "rgba(8,145,178,0.25)" },
@@ -442,7 +443,17 @@ export default function MissiologicalConsultation() {
         </div>
 
         {/* Registration Form */}
-        {!submitted ? (
+        {registrationClosed ? (
+          <div className="section-pad" style={{ ...glass, padding:"40px", textAlign:"center" }}>
+            <h3 style={{ fontSize:"26px", fontWeight:"800", color:"#0f172a", marginBottom:"14px" }}>참석 신청 마감</h3>
+            <p style={{ fontSize:"18px", color:"#334155", marginBottom:"18px", lineHeight:"1.8" }}>
+              행사 등록이 이미 마감되었습니다.
+            </p>
+            <p style={{ fontSize:"16px", color:"#64748b", marginBottom:"0", lineHeight:"1.8" }}>
+              문의가 필요하시면 GMF 운영 담당자에게 연락해 주세요.
+            </p>
+          </div>
+        ) : !submitted ? (
           <div className="section-pad" style={{ ...glass, padding:"40px" }}>
             <h3 style={{ fontSize:"26px", fontWeight:"800", color:"#0f172a", marginBottom:"6px" }}>참석 신청</h3>
             <p style={{ fontSize:"16px", color:"#d57248", marginBottom:"28px" }}>[중요] 신청마감은 4월 15일까지 입니다.</p>
