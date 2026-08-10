@@ -117,7 +117,7 @@ export default function MissiologicalConsultation() {
   const [submitted, setSubmitted] = useState(false);
   const [focused, setFocused] = useState("");
 
-  const timeSlots = ["08:00-09:00","09:00-09:30","09:30-10:30","11:00-12:30", "12:30-14:00","14:00-14:30","14:30-15:30", "16:00-17:30", "18:00-19:00","19:30-21:00"];
+  const timeSlots = ["08:00-09:00","09:00-09:30","09:30-10:30","11:00-12:30", "12:30-14:00","14:00-14:30","14:30-15:30", "16:00-17:30", "18:00-19:00","19:00-19:30", "19:30-20:00", "20:00-20:30", "20:30-21:00"];
   const days = [
     { day: "10/05(월)", color: "#2563eb", borderColor: "rgba(37,99,235,0.25)" },
     { day: "10/06(화)", color: "#0891b2", borderColor: "rgba(8,145,178,0.25)" },
@@ -125,16 +125,19 @@ export default function MissiologicalConsultation() {
     { day: "10/08(목)", color: "#16a34a", borderColor: "rgba(22,163,74,0.25)" },
   ];
   const grid = [
-    [{ title:"도착", note:"점심식사 전까지", type:"default", rowSpan:4 }, { title:"아침식사", note:"", type:"meal", colSpan:3 }, "CSPAN","CSPAN"],
+    [{ title:"도착", note:"", type:"default", rowSpan:5 }, { title:"아침식사", note:"", type:"meal", colSpan:3 }, "CSPAN","CSPAN"],
     ["RSPAN", { title:"Entering Space", note:"", type:"default", colSpan:3 },  "CSPAN","CSPAN"],
     ["RSPAN", { title:"세션 1", note:"발제: 정민영", type:"session", rowSpan:2 }, { title:"세션 3", note:"발제: 권성찬", type:"session", rowSpan:2 }, { title:"정리 및 발표", note:"", type:"session"}],
     ["RSPAN", "RSPAN", "RSPAN", { title:"선교적 성찬: 정민영", note:"", type:"word"}],
-    [{ title:"점심식사", note:"", type:"meal", colSpan:4 }, "CSPAN","CSPAN","CSPAN"],
-    [{ title:"등록", note:"", type:"default" }, { title:"Entering Space", note:"", type:"default" }, { title:"Outing", note:"제주 탐방", type:"outing", rowSpan:3 }, { title:"집으로", note:"", type:"outing", rowSpan:5 }],
-    [{ title:"개회예배: 이재훈", note:"", type:"word" }, { title:"세션 2", note:"발제: 홍현철", type:"session", rowSpan:2 }, "RSPAN","RSPAN"],
-    [{ title:"OT 및 조별나눔", note:"", type:"word" }, "RSPAN", "RSPAN","RSPAN", "RSPAN"],
+    ["RSPAN", { title:"점심식사", note:"", type:"meal"}, { title:"Outing", note:"기관별 제주탐방", type:"outing", rowSpan:4 },{ title:"집으로", note:"", type:"outing", rowSpan:9 }],
+    [{ title:"등록", note:"", type:"default" }, { title:"Entering Space", note:"", type:"default" }, "RSPAN", "RSPAN"],
+    [{ title:"OT 및 조별나눔", note:"", type:"word", rowSpan:2 }, { title:"세션 2", note:"발제: 홍현철", type:"session", rowSpan:2 }, "RSPAN","RSPAN"],
+    ["RSPAN", "RSPAN", "RSPAN","RSPAN", "RSPAN"],
     [{ title:"저녁 식사", note:"", type:"meal", colSpan:3 }, "CSPAN","CSPAN", "RSPAN"],
-    [{ title:"말씀: 이재훈", note:"", type:"word" }, { title:"말씀: 정갑신", note:"", type:"word", colSpan:2 }, "CSPAN", "RSPAN"],
+    [{ title:"교회로 이동", note:"", type:"meal", colSpan:2 }, "CSPAN", { title:"찬양콘서트", note:"하덕규", type:"word", rowSpan:2 }, "RSPAN"],
+    [{ title:"말씀: 정갑신", note:"", type:"word", colSpan:2, rowSpan:3}, "CSPAN", "RSPAN", "RSPAN"],
+    ["RSPAN", "RSPAN", { title:"말씀: 이재훈", note:"", type:"word", rowSpan:2 }, "RSPAN"],
+    ["RSPAN", "RSPAN", "RSPAN", "RSPAN"],
   ];
   const typeStyles = {
     word:    { bg:"rgba(37,99,235,0.07)",  border:"rgba(37,99,235,0.18)",  color:"#1d4ed8" },
